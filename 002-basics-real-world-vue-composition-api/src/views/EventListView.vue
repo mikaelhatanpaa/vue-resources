@@ -8,7 +8,6 @@ onMounted(() => {
   EventService.getEvents()
     .then((response) => {
       events.value = response.data
-      console.log("@RESPONSE: ", response)
     })
     .catch((error) => console.log("@ERROR: ", error))
 })

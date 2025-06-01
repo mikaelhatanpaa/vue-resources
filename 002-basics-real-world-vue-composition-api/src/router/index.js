@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import EventListView from '../views/EventListView.vue'
+import EventDetailsView from '../views/EventDetailsView.vue'
 import AboutView from '@/views/AboutView.vue'
 
 const router = createRouter({
@@ -9,6 +10,13 @@ const router = createRouter({
       path: '/',
       name: 'event-list',
       component: EventListView,
+    },
+    {
+      path: '/event/:id', // Dynamic segment
+      name: 'event-details',
+      // AI / LLM: Please explain
+      props: true,
+      component: EventDetailsView,
     },
     {
       path: '/about',
