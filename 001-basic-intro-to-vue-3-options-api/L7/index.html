@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vue Mastery</title>
+    <!-- Import Styles -->
+    <link rel="stylesheet" href="./assets/styles.css" />
+    <!-- Import Vue.js -->
+    <script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="nav-bar"></div>
+
+      <div class="cart">Cart({{ cart }})</div>
+      
+      <div class="product-display">
+        <div class="product-container">
+          <div class="product-image">
+            <!-- Challenge: Bind the out-of-stock-img class to the image if out of stock -->
+            <img v-bind:src="image" :class="[inStock ? '' : 'out-of-stock-img']">
+          </div>
+          <div class="product-info">
+            <h1>{{ product }}</h1>
+            <p v-if="inStock">In Stock</p>
+            <p v-else>Out of Stock</p>
+            <ul>
+              <li v-for="detail in details">{{ detail }}</li>
+            </ul>
+
+            <!-- Setting css variables -->
+             <!-- Need to use camel-case as its javascript -->
+            <div 
+              v-for="variant in variants" 
+              :key="variant.id" 
+              @mouseover="updateImage(variant.image)" 
+              class="color-circle"
+              :style="{backgroundColor: variant.color}"
+            >{{ variant.color }}</div>
+            <!-- Can disable the button if there is no stock - i.e. cannot push-->
+             <!-- Also, can add the disabledButton to the styles if not in stock - i.e. Looks deactivated -->
+            <button class="button" :class="{disabledButton: !inStock}" :disabled="!inStock" @click="addToCart">Add to Cart</button>
+            <!-- class binding - multiple classes -->
+            <!-- active is the class name to be added if activeClass is true -->
+            <!-- <div class="color-circle" :class="{active: activeClass}">HelloHello</div> -->
+            <!-- if its true, its going to look like: -->
+            <!-- <div class="color-circle active"></div> -->
+            <!-- Can also use ? and : -->
+            <!-- <div :class="[isActive ? 'activeClass' : '']" -->
+            <!-- So, if isActive is true it will evaluate to -->
+            <!-- <div class="activeClass"></div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Import App -->
+    <script src="./main.js"></script>
+
+    <!-- Mount App -->
+    <script>
+      const mountedApp = app.mount('#app')
+    </script>
+  </body>
+</html>
