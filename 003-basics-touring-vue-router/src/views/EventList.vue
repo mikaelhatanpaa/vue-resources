@@ -1,7 +1,10 @@
 <script setup>
 import EventCard from "@/components/EventCard.vue";
 import EventService from "@/services/EventService.js";
+import {useRouter} from 'vue-router'
 import { onMounted, ref, watch, computed } from "vue";
+
+const router = useRouter()
 
 // AI/LLM: Please explain
 // - onMounted
@@ -33,6 +36,9 @@ const fetchevents = () => {
       events.value = []
       totalEvents.value =0
       console.log(error);
+        router.push({
+          name: "NetworkError",
+        });
     });
 };
 
