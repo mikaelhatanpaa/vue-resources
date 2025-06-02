@@ -15,7 +15,7 @@ const routes = [
     props: (route) => ({ page: parseInt(route.query.page) || 1 }),
   },
   {
-    path: "/event/:id",
+    path: "/events/:id",
     name: "EventLayout",
     props: true,
     component: EventLayout,
@@ -34,6 +34,35 @@ const routes = [
         path: "edit",
         name: "EventEdit",
         component: EventEdit,
+      },
+    ],
+  },
+  // THIS IS A REDIRECT
+  {
+    path: "/event/:id",
+    redirect: () => {
+      return { name: "EventDetails" };
+    },
+    children: [
+      // THIS IS ONE WAY OF REDIRECTION FOR CHILDREN
+      // {
+      //   path: "register",
+      //   redirect: () => {
+      //     name: "EventRegister";
+      //   },
+      // },
+      // {
+      //   path: "edit",
+      //   redirect: () => {
+      //     name: "EventEdit";
+      //   },
+      // },
+      // THIS IS AN EASIER WAY
+      {
+        path: "/event/:afterEvent(.*)",
+        redirect: (to) => {
+          return { path: "/events/" + to.params.afterEvent };
+        },
       },
     ],
   },
