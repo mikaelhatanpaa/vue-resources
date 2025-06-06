@@ -72,7 +72,10 @@ const routes = [
   {
     path: "/about",
     name: "About",
-    component: About,
+    // component: About,
+    // Lazy Loading: AI/LLM: Explain
+    component: () =>
+      import(/* webpackChunkName: "about") */ "../views/About.vue"),
   },
   {
     path: "/404/:resource",
@@ -95,6 +98,14 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+  // Moves to top when clicking next page on pagination
+  scrollBehaviour(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { top: 0 };
+    }
+  },
 });
 
 export default router;
